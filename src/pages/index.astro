@@ -1,16 +1,153 @@
 ---
-
+import CategoryCard from "../components/CategoryCard.astro";
+import ProdCard from "../components/ProdCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Eticdot">
+  <div class="container mx-auto">
+    <div class="banners">
+      <div class="banner-1 container">
+        <img src="sales_banners.jpg" alt="" srcset="" />
+      </div>
+      <div class="banner-2">
+        <img src="laptop-sale.jpeg" alt="" srcset="" />
+        <img src="headphone-sale.png" alt="" srcset="" />
+      </div>
+    </div>
+  </div>
+  <div class="items container mx-auto">
+    <div class="items-title">
+      <span class="text-blue">Popular</span> Products <span class="text-blue"
+        ><i class="bi bi-arrow-up-right"></i></span
+      >
+    </div>
+    <div class="item-rack">
+      <ProdCard
+        prodName="Electronic Toothbrush"
+        vendorName="Oral-B"
+        price="100"
+        prevPrice="120"
+        imageUrl="prod.jpg"
+      />
+      <ProdCard
+        prodName="Electronic Toothbrush"
+        vendorName="Oral-B"
+        price="100"
+        prevPrice="120"
+        imageUrl="prod.jpg"
+      />
+      <ProdCard
+        prodName="Electronic Toothbrush"
+        vendorName="Oral-B"
+        price="100"
+        prevPrice="120"
+        imageUrl="prod.jpg"
+      />
+      <ProdCard
+        prodName="Electronic Toothbrush"
+        vendorName="Oral-B"
+        price="100"
+        prevPrice="120"
+        imageUrl="prod.jpg"
+      />
+    </div>
+  </div>
+  <div class="items container mx-auto">
+    <div class="items-title">
+      <span class="text-blue">Sale</span> Products <span class="text-blue"
+        ><i class="bi bi-tags"></i></span
+      >
+    </div>
+    <div class="item-rack">
+      <ProdCard
+        prodName="Electronic Toothbrush"
+        vendorName="Oral-B"
+        price="100"
+        prevPrice="120"
+        imageUrl="prod.jpg"
+        prodId="1"
+      />
+      <ProdCard
+        prodName="Electronic Toothbrush"
+        vendorName="Oral-B"
+        price="100"
+        prevPrice="120"
+        imageUrl="prod.jpg"
+        prodId="2"
+      />
+      <ProdCard
+        prodName="Electronic Toothbrush"
+        vendorName="Oral-B"
+        price="100"
+        prevPrice="120"
+        imageUrl="prod.jpg"
+        prodId="3"
+      />
+      <ProdCard
+        prodName="Electronic Toothbrushfadf asdf asdfasd"
+        vendorName="Oral-B"
+        price="100"
+        prevPrice="120"
+        imageUrl="prod.jpg"
+        prodId="4"
+      />
+    </div>
+  </div>
+  <div class="items container mx-auto">
+    <div class="items-title">
+      <span class="text-blue">Popular</span> Categories <span class="text-blue"
+        ><i class="bi bi-tags"></i></span
+      >
+    </div>
+    <div class="item-rack">
+      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
+      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
+      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
+      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
+      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
+      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
+      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
+      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .categories {
+    margin-top: 50px;
+  }
+  .category-rack {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .items {
+    margin-top: 40px;
+  }
+  .items-title {
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .item-rack {
+    background-color: #e2e2e2;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .banner-1 img {
+    width: 100%;
+  }
+  .banner-2 img {
+    width: 50%;
+    margin: 10px;
+  }
+  .banner-2 {
+    display: flex;
+  }
+  .banners {
+    margin-top: 20px;
+  }
+</style>
