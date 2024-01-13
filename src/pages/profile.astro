@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <div class="c-p-c container mx-auto">
+    <div class="c-p-title">Profile</div>
+    <div class="c-cpi">
+      <div class="c-pn">Name :</div>
+      <div class="p-name c-pi"></div>
+    </div>
+    <div class="c-cpi">
+      <div class="c-pn">Surname :</div>
+
+      <div class="p-surname c-pi"></div>
+    </div>
+    <div class="c-cpi">
+      <div class="c-pn">Email :</div>
+
+      <div class="p-email c-pi"></div>
+    </div>
+  </div>
+  <div class="container mx-auto">
+    <button class="auth-submit s-logout">Logout</button>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  const logoutBtn = document.querySelector(".s-logout");
+  const name = document.querySelector(".p-name");
+  const surname = document.querySelector(".p-surname");
+  const email = document.querySelector(".p-email");
+  const loggedUser = JSON.parse(localStorage.getItem("logUser"));
+  if (!loggedUser) {
+    window.location.replace("/login");
+  } else {
+    name.textContent = loggedUser.name;
+    surname.textContent = loggedUser.surname;
+    email.textContent = loggedUser.email;
+  }
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("logUser");
+    localStorage.removeItem("basketItems");
+    localStorage.removeItem("favItems");
+    localStorage.removeItem("totalBasket");
+    window.location.replace("/");
+  });
+</script>
+
+<style is:inline>
+  .c-cpi {
+    display: flex;
+    align-items: center;
+  }
+  .c-pn {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  .c-p-c {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .c-pi {
+    font-size: 24px;
+  }
+  .c-p-title {
+    font-weight: bold;
+    font-size: 32px;
+    margin-top: 14px;
+    text-align: center;
+  }
+</style>

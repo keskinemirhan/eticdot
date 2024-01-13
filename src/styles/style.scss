@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import "./prod.scss";
 $blue: #0007ab;
+$light-blue: #2b30c0;
 $green: #02bb2a;
 $red: #f50000;
 $dark-grey: #989898;
@@ -31,7 +32,11 @@ a {
   text-decoration: none;
   color: unset;
 }
-
+button {
+  border: unset;
+  outline: unset;
+  background-color: unset;
+}
 .input-text {
   border: 2px solid $blue;
   font-size: 1.2rem;
@@ -44,6 +49,8 @@ a {
     outline: none;
   }
 }
+@import "./basket.scss";
+@import "./forms.scss";
 
 // .text-blue {
 //   color: var(--blue);

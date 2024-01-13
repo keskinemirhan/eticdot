@@ -1,0 +1,92 @@
+.basket-item {
+  border: 1px solid #b1b1b1;
+
+  border-radius: 20px;
+}
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.prod-quantity {
+  font-size: 24px;
+}
+.prod-minus {
+  font-size: 40px;
+}
+.prod-trash {
+  font-size: 40px;
+}
+.prod-plus {
+  font-size: 40px;
+}
+.prod-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px;
+}
+.prod-price {
+  font-weight: bold;
+  font-size: 18px;
+}
+.img-name img {
+  border-radius: 20px;
+}
+.img-name {
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+td {
+  vertical-align: middle;
+}
+.total-basket {
+  padding: 40px;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid $blue;
+  border-radius: 20px;
+}
+.total-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.confirm-basket {
+  color: white;
+  font-size: 23px;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 30px;
+}
+.total-price {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.total-price i {
+  font-size: 60px;
+  color: $blue;
+}
+.m-total-price {
+  margin-left: 10px;
+  font-weight: bold;
+}
+.empty-basket {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.c-bt {
+  text-align: center;
+  font-weight: 500;
+  font-size: 32px;
+  margin: 20px;
+}

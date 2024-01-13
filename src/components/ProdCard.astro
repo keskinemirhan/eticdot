@@ -50,7 +50,7 @@ const item = {
     <i class="bi bi-star"></i>
   </div>
   <div class="basket-btn-wrapper">
-    <button class="basket-btn bg-green">
+    <button class=`basket-btn bg-green basket-btn-${prodId}`>
       <i class="bi bi-basket2-fill"></i> Add To Basket
     </button>
   </div>
@@ -77,6 +77,23 @@ const item = {
       prevItems.push(item);
     }
     localStorage.setItem("favItems", JSON.stringify(prevItems));
+  });
+
+  // basket
+  const basketButton = document.querySelector(`.basket-btn-${item.prodId}`);
+  basketButton.addEventListener("click", () => {
+    let basketItems = JSON.parse(localStorage.getItem("basketItems"));
+    if (!basketItems) basketItems = [];
+    const existingIndex = basketItems.findIndex(
+      (itm) => itm.prodId === item.prodId
+    );
+    if (existingIndex !== -1) {
+      basketItems[existingIndex].count++;
+    } else {
+      basketItems.push({ ...item, count: 1 });
+    }
+    localStorage.setItem("basketItems", JSON.stringify(basketItems));
+    updateNavBasket();
   });
 </script>
 <style is:inline>
