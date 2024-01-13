@@ -2,6 +2,7 @@
 import CategoryCard from "../components/CategoryCard.astro";
 import ProdCard from "../components/ProdCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { popularProducts, saleProducts } from "../backend/db.ts";
 ---
 
 <BaseLayout title="Eticdot">
@@ -23,34 +24,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       >
     </div>
     <div class="item-rack">
-      <ProdCard
-        prodName="Electronic Toothbrush"
-        vendorName="Oral-B"
-        price="100"
-        prevPrice="120"
-        imageUrl="prod.jpg"
-      />
-      <ProdCard
-        prodName="Electronic Toothbrush"
-        vendorName="Oral-B"
-        price="100"
-        prevPrice="120"
-        imageUrl="prod.jpg"
-      />
-      <ProdCard
-        prodName="Electronic Toothbrush"
-        vendorName="Oral-B"
-        price="100"
-        prevPrice="120"
-        imageUrl="prod.jpg"
-      />
-      <ProdCard
-        prodName="Electronic Toothbrush"
-        vendorName="Oral-B"
-        price="100"
-        prevPrice="120"
-        imageUrl="prod.jpg"
-      />
+      {
+        popularProducts.map((itm) => {
+          return (
+            <ProdCard
+              prodName={itm.prodName}
+              vendorName={itm.vendorName}
+              price={itm.price}
+              prevPrice={itm.prevPrice}
+              imageUrl={itm.imageUrl}
+              prodId={itm.prodId}
+            />
+          );
+        })
+      }
     </div>
   </div>
   <div class="items container mx-auto">
@@ -60,38 +47,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       >
     </div>
     <div class="item-rack">
-      <ProdCard
-        prodName="Electronic Toothbrush"
-        vendorName="Oral-B"
-        price="100"
-        prevPrice="120"
-        imageUrl="prod.jpg"
-        prodId="1"
-      />
-      <ProdCard
-        prodName="Electronic Toothbrush"
-        vendorName="Oral-B"
-        price="100"
-        prevPrice="120"
-        imageUrl="prod.jpg"
-        prodId="2"
-      />
-      <ProdCard
-        prodName="Electronic Toothbrush"
-        vendorName="Oral-B"
-        price="100"
-        prevPrice="120"
-        imageUrl="prod.jpg"
-        prodId="3"
-      />
-      <ProdCard
-        prodName="Electronic Toothbrushfadf asdf asdfasd"
-        vendorName="Oral-B"
-        price="300"
-        prevPrice="400"
-        imageUrl="prod.jpg"
-        prodId="4"
-      />
+      {
+        saleProducts.map((itm) => {
+          return (
+            <ProdCard
+              prodName={itm.prodName}
+              vendorName={itm.vendorName}
+              price={itm.price}
+              prevPrice={itm.prevPrice}
+              imageUrl={itm.imageUrl}
+              prodId={itm.prodId}
+            />
+          );
+        })
+      }
     </div>
   </div>
   <div class="items container mx-auto">

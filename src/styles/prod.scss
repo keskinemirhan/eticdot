@@ -3,6 +3,13 @@
   font-size: 16px;
   margin: 10px;
 }
+
+.prod-card {
+  transition-duration: 0.3s;
+}
+.prod-card:hover {
+  transform: scale(1.05);
+}
 .basket-btn {
   border: 0;
   color: white;
@@ -23,6 +30,7 @@
 .prod-name {
   font-size: 16px;
 }
+
 .vendor-name {
   font-weight: bolder;
   font-size: 14px;
@@ -32,9 +40,9 @@
   justify-content: center;
 }
 .prod-img {
-  object-fit: cover;
-  width: 220;
-  height: 130;
+  object-fit: contain;
+  width: 220px;
+  height: 180px;
 }
 .price-band {
   color: white;

@@ -29,7 +29,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   }
 </style>
 
-<script is:inline>
+<script type="module" is:inline>
   let favItems = JSON.parse(localStorage.getItem("favItems"));
   if (!favItems) favItems = [];
   const docFavItems = document.querySelector(".fav-items");
@@ -40,7 +40,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     const { price, prevPrice, prodId, imageUrl, vendorName, prodName } = itm;
     docFavItems.innerHTML =
       docFavItems.innerHTML +
-      `<div class="prod-card">
+      `<a href="/product/${itm.prodId}" class="prod-card">
   <div class="price-band bg-blue">
     <div class="price">
       <div class="current-price">${price + "$"}</div>
@@ -80,11 +80,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <i class="bi bi-star"></i>
   </div>
   <div class="basket-btn-wrapper">
-    <button class="basket-btn bg-green">
-      <i class="bi bi-basket2-fill"></i> Add To Basket
+    <button class="basket-btn bg-green basket-btn-${itm.prodId}">
+      <i class="bi bi-basket2-fill "></i> Add To Basket
     </button>
   </div>
-</div>`;
+</a>`;
   });
   favItems.forEach((itm) => {
     const { price, prevPrice, prodId, imageUrl, vendorName, prodName } = itm;
@@ -97,7 +97,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     if (existingIndex !== -1) {
       favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
     }
-    favButton.addEventListener("click", () => {
+    favButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
       let prevItems = JSON.parse(localStorage.getItem("favItems") ?? "[]");
       const existingIndex = prevItems.findIndex((itm) => itm.prodId === prodId);
       if (existingIndex !== -1) {
@@ -109,6 +111,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         prevItems.push(itm);
       }
       localStorage.setItem("favItems", JSON.stringify(prevItems));
+    });
+    const basketButton = document.querySelector(`.basket-btn-${itm.prodId}`);
+    basketButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      let basketItems = JSON.parse(localStorage.getItem("basketItems"));
+      if (!basketItems) basketItems = [];
+      const existingIndex = basketItems.findIndex(
+        (it) => it.prodId === itm.prodId
+      );
+      if (existingIndex !== -1) {
+        basketItems[existingIndex].count++;
+      } else {
+        basketItems.push({ ...itm, count: 1 });
+      }
+      localStorage.setItem("basketItems", JSON.stringify(basketItems));
+      new Toast({
+        message: "Added to Basket",
+        type: "success",
+      });
+      updateNavBasket();
     });
   });
 </script>

@@ -64,11 +64,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         `<div class="b-item-container container mx-auto mt-3">
       <div class="basket-item">
         <div class="img-name">
-          <img src="${imageUrl}" width="60" height="60" alt="" />
-          <div class="prod-name">
+          <div class="basket-image" style="background-image:url('${imageUrl}'); "  ></div>
+          <a href="/product/${prodId}" class="prod-name">
             <span class="prod-vendor text-blue">${vendorName} </span>${prodName}
-          </div>
-          <div class="prod-price text-blue">${price}$ <span class="prev-price">${prevPrice}</span></div>
+          </a>
+          <div  class="prod-price text-blue">${price}$ <span class="prev-price">${
+            prevPrice ? prevPrice + "$" : ""
+          }</span></div>
         </div>
         <div class="quantity">
           <button class="prod-plus prod-plus-${prodId} text-green"
@@ -122,4 +124,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     });
   }
   update();
+  const confirmButton = document.querySelector(".confirm-basket");
+  confirmButton.addEventListener("click", () => {
+    const user = JSON.parse(localStorage.getItem("logUser"));
+    if (!user) {
+      new Toast({
+        message: "Please login or register to order",
+        type: "danger",
+      });
+    } else {
+      window.location.replace("/order");
+    }
+  });
 </script>

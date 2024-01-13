@@ -1,0 +1,45 @@
+---
+import ProdCard from "../components/ProdCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { products } from "../backend/db";
+---
+
+<BaseLayout>
+  <div class="search-title">Search Results...</div>
+  <div class="container mx-auto">
+    <div class="result-container">
+      {
+        products.map((itm) => {
+          return (
+            <ProdCard
+              prodName={itm.prodName}
+              vendorName={itm.vendorName}
+              price={itm.price}
+              prevPrice={itm.prevPrice}
+              imageUrl={itm.imageUrl}
+              prodId={itm.prodId}
+            />
+          );
+        })
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:inline>
+  .search-title {
+    font-size: 32px;
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+  }
+  .result-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #e2e2e2;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 30px;
+  }
+</style>

@@ -11,7 +11,7 @@ const item = {
 };
 ---
 
-<div class="prod-card">
+<a href={`/product/${item.prodId}`} class="prod-card">
   <div class="price-band bg-blue">
     <div class="price">
       <div class="current-price">{price + "$"}</div>
@@ -54,7 +54,7 @@ const item = {
       <i class="bi bi-basket2-fill"></i> Add To Basket
     </button>
   </div>
-</div>
+</a>
 <script is:inline define:vars={{ item }}>
   const favButton = document.querySelector(`.fav-btn-${item.prodId}`);
   let favItems = JSON.parse(localStorage.getItem("favItems"));
@@ -63,7 +63,9 @@ const item = {
   if (existingIndex !== -1) {
     favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
   }
-  favButton?.addEventListener("click", () => {
+  favButton?.addEventListener("click", (e) => {
+    e.stopPropagation();
+      e.preventDefault();
     let prevItems = JSON.parse(localStorage.getItem("favItems") ?? "[]");
     const existingIndex = prevItems.findIndex(
       (itm) => itm.prodId === item.prodId
@@ -81,7 +83,9 @@ const item = {
 
   // basket
   const basketButton = document.querySelector(`.basket-btn-${item.prodId}`);
-  basketButton.addEventListener("click", () => {
+  basketButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     let basketItems = JSON.parse(localStorage.getItem("basketItems"));
     if (!basketItems) basketItems = [];
     const existingIndex = basketItems.findIndex(
@@ -93,6 +97,10 @@ const item = {
       basketItems.push({ ...item, count: 1 });
     }
     localStorage.setItem("basketItems", JSON.stringify(basketItems));
+    new Toast({
+      message: "Added to Basket",
+      type: "success",
+    });
     updateNavBasket();
   });
 </script>
@@ -109,6 +117,9 @@ const item = {
     border-radius: 20px;
     outline: none;
     font-weight: bold;
+  }
+  .basket-btn:hover {
+    background-color: rgb(0, 223, 0);
   }
   .prod-rating {
     text-align: center;
@@ -131,9 +142,9 @@ const item = {
     justify-content: center;
   }
   .prod-img {
-    object-fit: cover;
-    width: 220;
-    height: 130;
+    object-fit: contain;
+    width: 240px;
+    height: 180px;
   }
   .price-band {
     color: white;
@@ -156,7 +167,9 @@ const item = {
   }
 
   .sale {
-    border-radius: 20px;
+    border-radius: {
+        prodName : 
+    } 20px;
     font-size: 18px;
     padding: 8px 5px 8px 5px;
     font-weight: 500;
