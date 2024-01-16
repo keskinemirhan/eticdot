@@ -2,121 +2,208 @@
 import CategoryCard from "../components/CategoryCard.astro";
 import ProdCard from "../components/ProdCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { popularProducts, saleProducts } from "../backend/db.ts";
+import {
+  categories,
+  popularProducts,
+  products,
+  saleProducts,
+} from "../backend/db.ts";
 ---
 
 <BaseLayout title="Eticdot">
   <div class="container mx-auto">
-    <div class="banners">
-      <div class="banner-1 container">
-        <img src="sales_banners.jpg" alt="" srcset="" />
+    <div
+      id="carouselExampleDark"
+      class="carousel carousel-dark slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
       </div>
-      <div class="banner-2">
-        <img src="laptop-sale.jpeg" alt="" srcset="" />
-        <img src="headphone-sale.png" alt="" srcset="" />
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="1000">
+          <img src="/sale1.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <img src="/sale2.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="/sale3.jpg" class="d-block w-100" alt="..." />
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="items container mx-auto">
-    <div class="items-title">
-      <span class="text-blue">Popular</span> Products <span class="text-blue"
-        ><i class="bi bi-arrow-up-right"></i></span
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="prev"
       >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="items container mx-auto">
+      <div class="items-title">
+        <span class="text-blue">Popular</span> Categories <span
+          class="text-blue"><i class="bi bi-tags"></i></span
+        >
+      </div>
     </div>
     <div class="item-rack">
       {
-        popularProducts.map((itm) => {
-          return (
-            <ProdCard
-              prodName={itm.prodName}
-              vendorName={itm.vendorName}
-              price={itm.price}
-              prevPrice={itm.prevPrice}
-              imageUrl={itm.imageUrl}
-              prodId={itm.prodId}
-            />
-          );
-        })
+        categories.map((cat) => (
+          <CategoryCard categoryName={cat.name} imageUrl={cat.imageUrl} />
+        ))
       }
     </div>
-  </div>
-  <div class="items container mx-auto">
-    <div class="items-title">
-      <span class="text-blue">Sale</span> Products <span class="text-blue"
-        ><i class="bi bi-tags"></i></span
-      >
-    </div>
-    <div class="item-rack">
-      {
-        saleProducts.map((itm) => {
-          return (
-            <ProdCard
-              prodName={itm.prodName}
-              vendorName={itm.vendorName}
-              price={itm.price}
-              prevPrice={itm.prevPrice}
-              imageUrl={itm.imageUrl}
-              prodId={itm.prodId}
-            />
-          );
-        })
-      }
-    </div>
-  </div>
-  <div class="items container mx-auto">
-    <div class="items-title">
-      <span class="text-blue">Popular</span> Categories <span class="text-blue"
-        ><i class="bi bi-tags"></i></span
-      >
-    </div>
-    <div class="item-rack">
-      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
-      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
-      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
-      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
-      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
-      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
-      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
-      <CategoryCard categoryName="Laptops" imageUrl="cat-laptop.jpg" />
-    </div>
-  </div>
-</BaseLayout>
 
-<style>
-  .categories {
-    margin-top: 50px;
-  }
-  .category-rack {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .items {
-    margin-top: 40px;
-  }
-  .items-title {
-    font-size: 32px;
-    font-weight: bold;
-  }
-  .item-rack {
-    background-color: #e2e2e2;
-    border-radius: 20px;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .banner-1 img {
-    width: 100%;
-  }
-  .banner-2 img {
-    width: 50%;
-    margin: 10px;
-  }
-  .banner-2 {
-    display: flex;
-  }
-  .banners {
-    margin-top: 20px;
-  }
-</style>
+    <div class="items container mx-auto">
+      <div class="items-title">
+        <span class="text-blue">Popular</span> Products <span class="text-blue"
+          ><i class="bi bi-arrow-up-right"></i></span
+        >
+      </div>
+      <div class="item-rack">
+        {
+          popularProducts.map((itm) => {
+            return (
+              <ProdCard
+                prodName={itm.prodName}
+                vendorName={itm.vendorName}
+                price={itm.price}
+                prevPrice={itm.prevPrice}
+                imageUrl={itm.imageUrl}
+                prodId={itm.prodId}
+              />
+            );
+          })
+        }
+      </div>
+    </div>
+    <div class="items container mx-auto">
+      <div class="items-title">
+        <span class="text-blue">Sale</span> Products <span class="text-blue"
+          ><i class="bi bi-tags"></i></span
+        >
+      </div>
+      <div class="item-rack">
+        {
+          saleProducts.map((itm) => {
+            return (
+              <ProdCard
+                prodName={itm.prodName}
+                vendorName={itm.vendorName}
+                price={itm.price}
+                prevPrice={itm.prevPrice}
+                imageUrl={itm.imageUrl}
+                prodId={itm.prodId}
+              />
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+  <script is:inline src="/script.js"></script>
+
+  <script is:inline>
+    loadFavStatus();
+    bindFavButton();
+    updateNavBasket();
+  </script>
+  <style>
+    .car-con {
+      width: 100%;
+    }
+    .car-con img {
+      width: 100%;
+    }
+    .carousel {
+      margin-top: 20px;
+      border-radius: 20px;
+      padding: 10px;
+      box-shadow:
+        #6166ff 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    }
+
+    .carousel img {
+      object-fit: contain;
+      height: 550px;
+    }
+
+    @media (max-width: 1200px) {
+      .carousel img {
+        height: 400px;
+      }
+    }
+    @media (max-width: 768px) {
+      .carousel img {
+        height: 200px;
+      }
+    }
+    .center img {
+      margin: 120px;
+    }
+    .categories {
+      margin-top: 50px;
+    }
+    .category-rack {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .items {
+      margin-top: 40px;
+    }
+    .items-title {
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .item-rack {
+      background-color: #e2e2e2;
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .banner-1 img {
+      width: 100%;
+    }
+    .banner-2 img {
+      width: 50%;
+      margin: 10px;
+    }
+    .banner-2 {
+      display: flex;
+    }
+    .banners {
+      margin-top: 20px;
+    }
+  </style>
+</BaseLayout>

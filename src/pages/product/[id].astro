@@ -23,11 +23,14 @@ const item = items ?? new Product();
         <span class="prod-vendor-name text-blue"> {item.vendorName}</span>
       </div>
       <div class="product-info">
-        <div
+        <img
           class="product-image"
-          style={{ backgroundImage: `url("/${item.imageUrl}")` }}
-        >
-        </div>
+          src={"/" + item.imageUrl}
+          width="200"
+          alt=""
+          srcset=""
+        />
+
         <div class="product-details">
           <div class="details-hug">
             <div class="prod-rating text-blue">
@@ -142,145 +145,145 @@ const item = items ?? new Product();
       </div>
     </div>
   </div>
-</BaseLayout>
-<script is:inline define:vars={{ item }}>
-  const favButton = document.querySelector(`.fav-btn-${item.prodId}`);
-  let favItems = JSON.parse(localStorage.getItem("favItems"));
-  if (!favItems) favItems = [];
-  const existingIndex = favItems.findIndex((itm) => itm.prodId === item.prodId);
-  if (existingIndex !== -1) {
-    favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
-  }
-  favButton?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    let prevItems = JSON.parse(localStorage.getItem("favItems") ?? "[]");
-    const existingIndex = prevItems.findIndex(
+  <script
+    is:inline
+    src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js"
+    type="application/javascript"></script>
+  <script is:inline define:vars={{ item }}>
+    const favButton = document.querySelector(`.fav-btn-${item.prodId}`);
+    let favItems = JSON.parse(localStorage.getItem("favItems"));
+    if (!favItems) favItems = [];
+    const existingIndex = favItems.findIndex(
       (itm) => itm.prodId === item.prodId
     );
     if (existingIndex !== -1) {
-      favButton.innerHTML = '<i class="bi bi-heart"></i>';
-      prevItems.splice(existingIndex, 1);
-    } else {
       favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
-
-      prevItems.push(item);
     }
-    localStorage.setItem("favItems", JSON.stringify(prevItems));
-  });
+    favButton?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      let prevItems = JSON.parse(localStorage.getItem("favItems") ?? "[]");
+      const existingIndex = prevItems.findIndex(
+        (itm) => itm.prodId === item.prodId
+      );
+      if (existingIndex !== -1) {
+        favButton.innerHTML = '<i class="bi bi-heart"></i>';
+        prevItems.splice(existingIndex, 1);
+      } else {
+        favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
 
-  // basket
-  const basketButton = document.querySelector(`.basket-btn-${item.prodId}`);
-  basketButton.addEventListener("click", (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    let basketItems = JSON.parse(localStorage.getItem("basketItems"));
-    if (!basketItems) basketItems = [];
-    const existingIndex = basketItems.findIndex(
-      (itm) => itm.prodId === item.prodId
-    );
-    if (existingIndex !== -1) {
-      basketItems[existingIndex].count++;
-    } else {
-      basketItems.push({ ...item, count: 1 });
-    }
-    localStorage.setItem("basketItems", JSON.stringify(basketItems));
-    new Toast({
-      message: "Added to Basket",
-      type: "success",
+        prevItems.push(item);
+      }
+      localStorage.setItem("favItems", JSON.stringify(prevItems));
     });
-    updateNavBasket();
-  });
-</script>
 
-<style>
-  .comment-rating {
-    font-size: 20px;
-  }
-  .comment {
-    margin-top: 15px;
-    padding: 10px;
-    border: 1px solid #989898;
-    border-radius: 20px;
-    background-color: #f9f9f9;
-  }
-  .comment-content {
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 300;
-    background-color: #e2e2e2;
-    margin-top: 8px;
-    border-radius: 20px;
-  }
-  .comment-name {
-    font-weight: bold;
-    font-size: 16px;
-  }
-  .comment-profile {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  .comment-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  .prod-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .frame-product {
-    padding: 20px;
-    border: 1px solid #989898;
-    border-radius: 20px;
-    margin-top: 40px;
-  }
-  .product-name {
-    font-size: 32px;
-    text-align: center;
-    font-weight: bolder;
-    margin-bottom: 8px;
-  }
-  .prod-vendor-name {
-    font-size: 24px;
-    font-weight: bolder;
-  }
-  .product-info {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-  .product-image {
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    height: 200px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    flex-grow: 1;
-    min-width: 200px;
-    flex: 3;
-  }
+    // basket
+    const basketButton = document.querySelector(`.basket-btn-${item.prodId}`);
+    basketButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      let basketItems = JSON.parse(localStorage.getItem("basketItems"));
+      if (!basketItems) basketItems = [];
+      const existingIndex = basketItems.findIndex(
+        (itm) => itm.prodId === item.prodId
+      );
+      if (existingIndex !== -1) {
+        basketItems[existingIndex].count++;
+      } else {
+        basketItems.push({ ...item, count: 1 });
+      }
+      localStorage.setItem("basketItems", JSON.stringify(basketItems));
+      new Toast({
+        message: "Added to Basket",
+        type: "success",
+      });
+      updateNavBasket();
+    });
+  </script>
 
-  .product-details {
-    flex: 1;
-  }
-  .details-hug {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-  .prod-desc {
-    margin: 20px;
-    width: 180px;
-    font-size: 14px;
-    text-align: center;
-  }
-</style>
+  <style>
+    .product-image {
+      min-height: 200px;
+      max-height: 400px;
+      flex: 2;
+      object-fit: contain;
+    }
+    .comment-rating {
+      font-size: 20px;
+    }
+    .comment {
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #989898;
+      border-radius: 20px;
+      background-color: #f9f9f9;
+    }
+    .comment-content {
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 300;
+      background-color: #e2e2e2;
+      margin-top: 8px;
+      border-radius: 20px;
+    }
+    .comment-name {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .comment-profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .comment-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .prod-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .frame-product {
+      border: 1px solid #989898;
+      border-radius: 20px;
+      margin-top: 40px;
+      padding: 40px 20px;
+    }
+    .product-name {
+      font-size: 32px;
+      text-align: center;
+      font-weight: bolder;
+      margin-bottom: 8px;
+    }
+    .prod-vendor-name {
+      font-size: 24px;
+      font-weight: bolder;
+    }
+    .product-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .product-details {
+      flex: 1;
+    }
+    .details-hug {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .prod-desc {
+      margin: 20px;
+      width: 180px;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</BaseLayout>

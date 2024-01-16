@@ -5,4 +5,5 @@ export class Product {
   vendorName: string = "";
   imageUrl: string = "";
   prodId: string = "";
+  category: string = "";
 }

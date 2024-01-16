@@ -1,5 +1,12 @@
 import type { Product } from "./product";
 
+export const categories = [
+  { name: "Electronic", imageUrl: "/cat-electronic.webp" },
+  { name: "Tools", imageUrl: "/cat-tools.jpg" },
+  { name: "Home", imageUrl: "/cat-home.webp" },
+  { name: "Clothes", imageUrl: "/cat-clothes.jpg" },
+];
+
 export const popularProducts: Product[] = [
   {
     prodName: "Lighter",
@@ -7,6 +14,7 @@ export const popularProducts: Product[] = [
     vendorName: "CHLight",
     imageUrl: "lighter.jpg",
     prodId: "1",
+    category: "Tools",
   },
   {
     prodName: "Playing Cards",
@@ -14,6 +22,7 @@ export const popularProducts: Product[] = [
     vendorName: "T&T",
     imageUrl: "cards.jpg",
     prodId: "2",
+    category: "Home",
   },
   {
     prodName: "Keyboard",
@@ -22,6 +31,7 @@ export const popularProducts: Product[] = [
     vendorName: "HK Tech",
     imageUrl: "keyboard.jpg",
     prodId: "3",
+    category: "Electronic",
   },
   {
     prodName: "AirTag 4 Pack",
@@ -29,6 +39,7 @@ export const popularProducts: Product[] = [
     vendorName: "Apple",
     imageUrl: "tag.jpg",
     prodId: "4",
+    category: "Electronic",
   },
 ];
 
@@ -40,6 +51,7 @@ export const saleProducts: Product[] = [
     vendorName: "TK Furniture",
     imageUrl: "desk.jpg",
     prodId: "5",
+    category: "Home",
   },
   {
     prodName: "Lenovo Ideapad 4",
@@ -48,6 +60,7 @@ export const saleProducts: Product[] = [
     vendorName: "Lenovo",
     imageUrl: "laptop.jpg",
     prodId: "6",
+    category: "Electronic",
   },
   {
     prodName: "Plates",
@@ -56,6 +69,7 @@ export const saleProducts: Product[] = [
     vendorName: "Pkate",
     imageUrl: "plates.jpg",
     prodId: "7",
+    category: "Home",
   },
   {
     prodName: "Sweater",
@@ -64,6 +78,7 @@ export const saleProducts: Product[] = [
     vendorName: "Aran",
     imageUrl: "cloth.jpg",
     prodId: "8",
+    category: "Clothes",
   },
 ];
 

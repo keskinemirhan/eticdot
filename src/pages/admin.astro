@@ -1,0 +1,154 @@
+---
+import AdminLayout from "../layouts/AdminLayout.astro";
+import { products } from "../backend/db";
+---
+
+<AdminLayout title="Admin">
+  <div class="panel-container">
+    <div class="panel-menu">
+      <button data-target="vendor" class="panel-item panel-drop-btn"
+        ><i class="bi bi-shop"></i> Vendors</button
+      >
+      <div id="vendor" class="panel-dropdown">
+        <button class="panel-item">Vendor List</button>
+        <button class="panel-item">Add Vendor</button>
+        <button class="panel-item">Ban Vendor</button>
+        <button class="panel-item">Remove Vendor</button>
+      </div>
+      <button data-target="product" class="panel-item panel-drop-btn"
+        ><i class="bi bi-box2-fill"></i> Products</button
+      >
+      <div id="product" class="panel-dropdown">
+        <button class="panel-item">Product List</button>
+        <button class="panel-item">Add Product</button>
+      </div>
+
+      <button data-target="order" class="panel-item panel-drop-btn"
+        ><i class="bi bi-truck"></i> Orders</button
+      >
+      <div id="order" class="panel-dropdown">
+        <button class="panel-item">Order List</button>
+        <button class="panel-item">Payment Panel</button>
+      </div>
+      <button data-target="category" class="panel-item panel-drop-btn"
+        ><i class="bi bi-tags-fill"></i> Categories</button
+      >
+      <div id="category" class="panel-dropdown">
+        <button class="panel-item">Category List</button>
+        <button class="panel-item">Remove Category</button>
+        <button class="panel-item">Add Category</button>
+      </div>
+    </div>
+    <div class="panel-screen">
+      <h1>Main Panel</h1>
+
+      <h2>Items</h2>
+      <table class="container admin-table table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Vendor</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((pd) => {
+              return (
+                <tr>
+                  <td>{pd.prodId}</td>
+                  <td>
+                    <img class="prod-img" src={pd.imageUrl} alt="" srcset="" />
+                  </td>
+                  <td>{pd.prodName}</td>
+
+                  <td>{pd.category}</td>
+                  <td>{pd.price}$</td>
+                  <td>{pd.vendorName}</td>
+                  <td>
+                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-danger">Remove</button>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</AdminLayout>
+
+<script is:inline>
+  $(".panel-drop-btn").click(function () {
+    const drop = $(this).attr("data-target");
+    $("#" + drop).toggle();
+  });
+</script>
+<style>
+  .admin-table {
+    border: 1px solid rgb(194, 194, 194);
+  }
+  .prod-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid rgb(196, 196, 196);
+  }
+  .panel-screen h1,
+  h2 {
+    margin-top: 30px;
+  }
+  .panel-screen {
+    text-align: center;
+  }
+  .panel-menu {
+    background-color: rgb(248, 248, 248);
+    width: 300px;
+    overflow: scroll;
+  }
+  .panel-item:hover {
+    background-color: rgb(231, 231, 231);
+    color: rgb(104, 104, 104);
+  }
+  .panel-dropdown > .panel-item {
+    background-color: rgb(236, 236, 236);
+  }
+  .panel-dropdown > .panel-item:hover {
+    background-color: rgb(221, 221, 221);
+  }
+
+  .panel-item {
+    font-size: 18px;
+    padding: 10px;
+    color: rgb(66, 66, 66);
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid rgb(218, 218, 218);
+  }
+  .panel-item i {
+    font-size: 22px;
+  }
+  .panel-drop-btn {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: left;
+  }
+  .panel-dropdown {
+    display: none;
+  }
+  .panel-screen {
+    flex: 1;
+  }
+  .panel-container {
+    min-width: 1080px;
+    min-height: 100vh;
+    display: flex;
+  }
+</style>

@@ -31,12 +31,12 @@ const item = {
     }
   </div>
   <div class="fav-btn-box">
-    <button class={`fav-btn fav-btn-${prodId}`}
+    <button data-item={JSON.stringify(item)} class={`fav-btn fav-btn-${prodId}`}
       ><i class="bi bi-heart"></i></button
     >
   </div>
   <div class="prod-img-wrapper">
-    <img class="prod-img" src={imageUrl} alt="" srcset="" />
+    <img class="prod-img" src={"/" + imageUrl} alt="" srcset="" />
   </div>
   <div class="prod-name-wrapper">
     <span class="vendor-name text-blue">{vendorName}</span>
@@ -50,42 +50,21 @@ const item = {
     <i class="bi bi-star"></i>
   </div>
   <div class="basket-btn-wrapper">
-    <button class=`basket-btn bg-green basket-btn-${prodId}`>
+    <button
+      data-item={JSON.stringify(item)}
+      class=`basket-btn bg-green basket-btn-${prodId}`
+    >
       <i class="bi bi-basket2-fill"></i> Add To Basket
     </button>
   </div>
 </a>
 <script is:inline define:vars={{ item }}>
-  const favButton = document.querySelector(`.fav-btn-${item.prodId}`);
-  let favItems = JSON.parse(localStorage.getItem("favItems"));
-  if (!favItems) favItems = [];
-  const existingIndex = favItems.findIndex((itm) => itm.prodId === item.prodId);
-  if (existingIndex !== -1) {
-    favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
-  }
-  favButton?.addEventListener("click", (e) => {
-    e.stopPropagation();
-      e.preventDefault();
-    let prevItems = JSON.parse(localStorage.getItem("favItems") ?? "[]");
-    const existingIndex = prevItems.findIndex(
-      (itm) => itm.prodId === item.prodId
-    );
-    if (existingIndex !== -1) {
-      favButton.innerHTML = '<i class="bi bi-heart"></i>';
-      prevItems.splice(existingIndex, 1);
-    } else {
-      favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
-
-      prevItems.push(item);
-    }
-    localStorage.setItem("favItems", JSON.stringify(prevItems));
-  });
-
   // basket
   const basketButton = document.querySelector(`.basket-btn-${item.prodId}`);
   basketButton.addEventListener("click", (e) => {
     e.stopPropagation();
     e.preventDefault();
+
     let basketItems = JSON.parse(localStorage.getItem("basketItems"));
     if (!basketItems) basketItems = [];
     const existingIndex = basketItems.findIndex(
@@ -104,98 +83,3 @@ const item = {
     updateNavBasket();
   });
 </script>
-<style is:inline>
-  .basket-btn-wrapper {
-    text-align: center;
-    font-size: 16px;
-    margin: 10px;
-  }
-  .basket-btn {
-    border: 0;
-    color: white;
-    padding: 10px;
-    border-radius: 20px;
-    outline: none;
-    font-weight: bold;
-  }
-  .basket-btn:hover {
-    background-color: rgb(0, 223, 0);
-  }
-  .prod-rating {
-    text-align: center;
-  }
-  .prod-name-wrapper {
-    white-space: nowrap;
-    margin-left: 20px;
-    margin-right: 20px;
-    overflow: hidden;
-  }
-  .prod-name {
-    font-size: 16px;
-  }
-  .vendor-name {
-    font-weight: bolder;
-    font-size: 14px;
-  }
-  .prod-img-wrapper {
-    display: flex;
-    justify-content: center;
-  }
-  .prod-img {
-    object-fit: contain;
-    width: 240px;
-    height: 180px;
-  }
-  .price-band {
-    color: white;
-    border-radius: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .fav-btn {
-    border: 0;
-    background-color: white;
-    outline: none;
-    font-size: 32px;
-    color: #ff0099;
-  }
-
-  .fav-btn-box {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-
-  .sale {
-    border-radius: {
-        prodName : 
-    } 20px;
-    font-size: 18px;
-    padding: 8px 5px 8px 5px;
-    font-weight: 500;
-  }
-  .price {
-    display: flex;
-    font-size: 18px;
-    font-weight: bold;
-    margin-left: 5px;
-    padding: 8px 5px 8px 5px;
-  }
-  .current-price {
-    margin-right: 3px;
-  }
-  .prev-price {
-    text-decoration: line-through;
-    font-size: 14px;
-  }
-  .prod-card {
-    margin: 10px;
-    background-color: white;
-    width: 265px;
-    height: 400px;
-    box-shadow:
-      rgba(0, 0, 0, 0.19) 0px 10px 20px,
-      rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    border-radius: 20px;
-  }
-</style>

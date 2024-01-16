@@ -2,11 +2,15 @@
 const { categoryName, imageUrl } = Astro.props;
 ---
 
-<div style={{ backgroundImage: `url(${imageUrl})` }} class="card-wrapper">
+<a
+  href={"/category/" + categoryName}
+  style={{ backgroundImage: `url(${imageUrl})` }}
+  class="card-wrapper"
+>
   <div class="btn-wrapper">
-    <a href="#" class="btn-cat bg-blue">{categoryName}</a>
+    <div class="btn-cat bg-blue">{categoryName}</div>
   </div>
-</div>
+</a>
 
 <style>
   .card-wrapper {

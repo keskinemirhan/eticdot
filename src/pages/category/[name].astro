@@ -1,0 +1,59 @@
+---
+import { categories, products } from "../../backend/db";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { GetStaticPaths } from "astro";
+import ProdCard from "../../components/ProdCard.astro";
+export const getStaticPaths = (() => {
+  return categories.map((itm) => {
+    return {
+      params: { name: itm.name },
+    };
+  });
+}) satisfies GetStaticPaths;
+const { name } = Astro.params;
+const items = categories.find((itm) => itm.name === name);
+const item = items;
+---
+
+<BaseLayout>
+  <div class="container mx-auto">
+    <div class="category-title">{name} Category</div>
+    <div class="item-rack">
+      {
+        products
+          .filter((product) => product.category === item?.name)
+          .map((itm) => (
+            <ProdCard
+              prodName={itm.prodName}
+              vendorName={itm.vendorName}
+              price={itm.price}
+              prevPrice={itm.prevPrice}
+              imageUrl={itm.imageUrl}
+              prodId={itm.prodId}
+            />
+          ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+<script is:inline>
+  loadFavStatus();
+  bindFavButton();
+</script>
+<style>
+  .category-title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .item-rack {
+    margin-top: 20px;
+    background-color: #e2e2e2;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

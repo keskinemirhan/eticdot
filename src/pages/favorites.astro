@@ -16,6 +16,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .fav-header h1 {
     text-align: center;
     font-size: 32px;
@@ -29,18 +30,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   }
 </style>
 
-<script type="module" is:inline>
+<script is:inline>
   let favItems = JSON.parse(localStorage.getItem("favItems"));
   if (!favItems) favItems = [];
-  const docFavItems = document.querySelector(".fav-items");
-  if (favItems.length === 0) {
-    docFavItems.innerHTML = `<div class="text-dark-grey empty-favorites">No Items...</div>`;
-  }
-  favItems.forEach((itm) => {
-    const { price, prevPrice, prodId, imageUrl, vendorName, prodName } = itm;
-    docFavItems.innerHTML =
-      docFavItems.innerHTML +
-      `<a href="/product/${itm.prodId}" class="prod-card">
+  function updateFavCards() {
+    const docFavItems = document.querySelector(".fav-items");
+    if (favItems.length === 0) {
+      docFavItems.innerHTML = `<div class="text-dark-grey empty-favorites">No Items...</div>`;
+    }
+    favItems.forEach((itm) => {
+      const { price, prevPrice, prodId, imageUrl, vendorName, prodName } = itm;
+      docFavItems.innerHTML =
+        docFavItems.innerHTML +
+        `<a href="/product/${itm.prodId}" class="prod-card">
   <div class="price-band bg-blue">
     <div class="price">
       <div class="current-price">${price + "$"}</div>
@@ -61,7 +63,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     }
   </div>
   <div class="fav-btn-box">
-    <button class="${`fav-btn fav-btn-${prodId}`}"
+    <button data-item='${JSON.stringify(
+      itm
+    )}' class="${`fav-btn fav-btn-${prodId}`}"
       ><i class="bi bi-heart"></i></button
     >
   </div>
@@ -85,33 +89,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </button>
   </div>
 </a>`;
-  });
+    });
+    loadFavStatus();
+    bindFavButton();
+  }
+  updateFavCards();
+  basketBtnEvent();
   favItems.forEach((itm) => {
     const { price, prevPrice, prodId, imageUrl, vendorName, prodName } = itm;
 
-    const favButton = document.querySelector(`.fav-btn-${prodId}`);
-    const favItems = JSON.parse(localStorage.getItem("favItems"));
-    if (!favItems) favItems = [];
-
-    const existingIndex = favItems.findIndex((itm) => itm.prodId === prodId);
-    if (existingIndex !== -1) {
-      favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
-    }
-    favButton.addEventListener("click", (e) => {
-      e.stopPropagation();
-      e.preventDefault();
-      let prevItems = JSON.parse(localStorage.getItem("favItems") ?? "[]");
-      const existingIndex = prevItems.findIndex((itm) => itm.prodId === prodId);
-      if (existingIndex !== -1) {
-        favButton.innerHTML = '<i class="bi bi-heart"></i>';
-        prevItems.splice(existingIndex, 1);
-      } else {
-        favButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
-
-        prevItems.push(itm);
-      }
-      localStorage.setItem("favItems", JSON.stringify(prevItems));
-    });
     const basketButton = document.querySelector(`.basket-btn-${itm.prodId}`);
     basketButton.addEventListener("click", (e) => {
       e.stopPropagation();
