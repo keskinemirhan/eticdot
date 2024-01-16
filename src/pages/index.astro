@@ -37,15 +37,15 @@ import {
           aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="1000">
+        <a href="/#sale" class="carousel-item active" data-bs-interval="1000">
           <img src="/sale1.jpg" class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
+        </a>
+        <a href="/search" class="carousel-item" data-bs-interval="2000">
           <img src="/sale2.jpg" class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item">
+        </a>
+        <a href="/category/Home" class="carousel-item">
           <img src="/sale3.jpg" class="d-block w-100" alt="..." />
-        </div>
+        </a>
       </div>
       <button
         class="carousel-control-prev"
@@ -106,8 +106,8 @@ import {
     </div>
     <div class="items container mx-auto">
       <div class="items-title">
-        <span class="text-blue">Sale</span> Products <span class="text-blue"
-          ><i class="bi bi-tags"></i></span
+        <span id="sale" class="text-blue">Sale</span> Products <span
+          class="text-blue"><i class="bi bi-tags"></i></span
         >
       </div>
       <div class="item-rack">
@@ -185,7 +185,7 @@ import {
       font-weight: bold;
     }
     .item-rack {
-      background-color: #e2e2e2;
+      background-color: #f2f2f2;
       border-radius: 20px;
       padding: 20px;
       display: flex;

@@ -25,7 +25,12 @@ import { products } from "../backend/db";
     </div>
   </div>
 </BaseLayout>
+<script is:inline src="/script.js"></script>
 
+<script is:inline>
+  loadFavStatus();
+  bindFavButton();
+</script>
 <style is:inline>
   .search-title {
     font-size: 32px;
@@ -37,7 +42,8 @@ import { products } from "../backend/db";
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: #e2e2e2;
+    background-color: #f2f2f2;
+
     padding: 20px;
     border-radius: 20px;
     margin-top: 30px;
